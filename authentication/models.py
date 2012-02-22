@@ -72,6 +72,3 @@ def createUserProfile(sender, instance, **kwargs):
 #            instance.save()
 #        except:
 #            continue 
-
-
-models.signals.post_save.connect(createUserProfile, sender=User)
