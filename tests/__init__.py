@@ -6,7 +6,7 @@ from django.utils import unittest
 custom assertion to check if an object exists
 '''
 class TestCase(unittest.TestCase):
-    def get_object_or_none(model, **kwargs):
+    def get_object_or_none(sself, model, **kwargs):
         try:
             return model.objects.get(**kwargs)
         except model.DoesNotExist:
