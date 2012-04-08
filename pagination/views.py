@@ -17,9 +17,9 @@ class NamedPaginatedViewMixin(object):
         if not self.paginate_on:
             raise AttributeError("paginate_on is undefined")
         try: 
-            paginator = NamePaginator(self.object_list, on=paginate_on, per_page=self.per_page)
+            paginator = NamePaginator(self.object_list, on=self.paginate_on, per_page=self.per_page)
         except AttributeError:
-            paginator = NamePaginator(self.object_list, on=paginate_on, per_page=25)
+            paginator = NamePaginator(self.object_list, on=self.paginate_on, per_page=25)
 
         try:
             page = int(self.request.GET.get('page', '1'))
