@@ -14,7 +14,7 @@ class NamedPaginatedViewMixin(object):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NamedPaginatedViewMixin, self).get_context_data(*args, **kwargs)
-        if not paginate_on:
+        if not self.paginate_on:
             raise AttributeError("paginate_on is undefined")
         try: 
             paginator = NamePaginator(self.object_list, on=paginate_on, per_page=self.per_page)
