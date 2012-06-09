@@ -39,74 +39,26 @@ class RestrictedDeleteView(DeleteView):
         return wrapper(request, *args, **kwargs)
 
 
+''' 
+TitleViewMixin can be used to make sure views have a title that can be used in templates.
+get_title() can be overidden to be used for more adavanced titles.
+
+for example ...
+
+def get_title(self):
+    return 'Details for %s' % self.object.title
 '''
-TitleViews, can hold a title context variable which can be used in the template
-'''
-
-class ListView(ListView):
-    title = None
-    
-    def get_title(self):
-        return self.title
-
-    def get_context_data(self, **kwargs):
-        context = super(ListView, self).get_context_data(**kwargs)
-        context.update({
-            'title': self.get_title(),
-        })
-        return context
-
-
-class CreateView(CreateView):
+	
+class TitleViewMixin(BaseTitleMixin):
     title = None
 
     def get_title(self):
+	if not self.title:
+            raise AttributeError('Title is undefined. Either set the variable or override get_title()')
         return self.title
 
     def get_context_data(self, **kwargs):
-        context = super(CreateView, self).get_context_data(**kwargs)
-        context.update({
-            'title': self.get_title(),
-        })
-        return context
-
-
-class UpdateView(UpdateView):
-    title = None
-
-    def get_title(self):
-        return self.title
-
-    def get_context_data(self, **kwargs):
-        context = super(UpdateView, self).get_context_data(**kwargs)
-        context.update({
-            'title': self.get_title(),
-        })
-        return context
-
-
-class DetailView(DetailView):
-    title = None
-
-    def get_title(self):
-        return self.title
-
-    def get_context_data(self, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context.update({
-            'title': self.get_title(),
-        })
-        return context
-
-
-class DeleteView(DeleteView):
-    title = None
-
-    def get_title(self):
-        return self.title
-
-    def get_context_data(self, **kwargs):
-        context = super(DeleteView, self).get_context_data(**kwargs)
+        context = super(TitleViewMixin, self).get_context_data(**kwargs)
         context.update({
             'title': self.get_title(),
         })
